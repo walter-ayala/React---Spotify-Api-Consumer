@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { RouterProvider } from 'react-router-dom';
+import router from './router';
+import { useStore } from './store';
+import { authSuccess } from './store/Auth/authActions';
 
 function App() {
+  const store = useStore(undefined)
+
+  useEffect(() => {
+    const appState = JSON.parse(localStorage.getItem('cloneSpotifyState') || '{}')
+    store.dispatch(authSuccess(appState))
+  }, [])
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   );
 }
 
