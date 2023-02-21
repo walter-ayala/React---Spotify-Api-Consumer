@@ -1,9 +1,9 @@
 import { kebabCase } from 'lodash'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import useRecommendations from '../../hooks/useRecommendations'
 import millisToMinutesAndSeconds from '../../utils/millisToMinutes'
+import { StyledLink } from '../CommonStyledComponents/CommonStyledComponents'
 
 const TracksRecommended = () => {
   const { tracks, loading } = useRecommendations()
@@ -13,15 +13,15 @@ const TracksRecommended = () => {
       <TitleSection>Canciones Recomendadas</TitleSection>
       {
         tracks.map((track) => (
-          <StyledLink key={track.name} state={{detail: track}} to={`detail/${kebabCase(track.name)}`} >
-           <MainContainer >
-            <ImageTrack src={track.album.images[0].url} alt="avatar" />
-            <InformationContainer>
-              <NameTrack>{track.name}</NameTrack>
-              <Subtitles>{track.artists[0].name}</Subtitles>
-            </InformationContainer>
-            <Subtitles>{millisToMinutesAndSeconds(track.duration_ms)}</Subtitles>
-          </MainContainer>
+          <StyledLink key={track.id} state={{ track }} to={`detail/${track.id}`} >
+            <MainContainer >
+              <ImageTrack src={track.album.images[0].url} alt="avatar" />
+              <InformationContainer>
+                <NameTrack>{track.name}</NameTrack>
+                <Subtitles>{track.artists[0].name}</Subtitles>
+              </InformationContainer>
+              <Subtitles>{millisToMinutesAndSeconds(track.duration_ms)}</Subtitles>
+            </MainContainer>
           </StyledLink>
         ))
       }
@@ -77,9 +77,5 @@ const InformationContainer = styled.div`
   align-items: flex-start;
   flex: 1;
 `
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-`;
 
 export default TracksRecommended

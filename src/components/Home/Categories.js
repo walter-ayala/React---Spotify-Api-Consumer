@@ -11,7 +11,7 @@ const Categories = () => {
       <MainContainer>
         {
           categories.map((category) => (
-            <CategoryContain>
+            <CategoryContain key={category.name}>
               <ImageTrack src={category.icons[0].url} alt="avatar" />
               <CategoryName>{category.name}</CategoryName>
             </CategoryContain>

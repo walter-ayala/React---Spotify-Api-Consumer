@@ -1,6 +1,8 @@
+import { kebabCase } from 'lodash'
 import React from 'react'
 import styled from 'styled-components'
 import useTopTracks from '../../hooks/useTopTracks'
+import { StyledLink } from '../CommonStyledComponents/CommonStyledComponents'
 
 const TopTracks = () => {
   const { tracks, loading } = useTopTracks()
@@ -11,11 +13,14 @@ const TopTracks = () => {
       <MainContainer>
         {
           tracks.map((song) => (
-            <CategoryContain>
-              <ImageTrack src={song.track.album.images[0].url } alt="avatar" />
-              <NameTrack>{song.track.name}</NameTrack>
-              <Subtitles>{song.track.artists[0].name}</Subtitles>
-            </CategoryContain>
+            <StyledLink key={song.track.id} state={{ track: song.track }} to={`detail/${song.track.id}`} >
+              <InformationContainer>
+                <ImageTrack src={song.track.album.images[0].url} alt="avatar" />
+                <NameTrack>{song.track.name}</NameTrack>
+                <Subtitles>{song.track.artists[0].name}</Subtitles>
+              </InformationContainer>
+            </StyledLink>
+
           ))
         }
       </MainContainer>
@@ -40,7 +45,7 @@ const MainContainer = styled.div`
   gap: 40px 20px;
 `
 
-const CategoryContain = styled.div`
+const InformationContainer = styled.div`
   display: flex;
   flex-direction: column;
 `

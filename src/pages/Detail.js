@@ -1,17 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useLocation } from 'react-router-dom'
+import useSelectedTrack from '../hooks/useSelectedTrack'
 
 const Detail = () => {
-  const state = useLocation()
-
-  useEffect(() => {
-    console.log(state)
-  }, [state])
-  
+  const { state } = useLocation()
+  const { dataTrack, loading } = useSelectedTrack(state?.track)
 
   return (
     <div>
-      <p>aja</p>
+      <p>Detalle</p>
     </div>
   )
 }
