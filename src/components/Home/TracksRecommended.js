@@ -1,19 +1,21 @@
-import { kebabCase } from 'lodash'
 import React from 'react'
 import styled from 'styled-components'
 import useRecommendations from '../../hooks/useRecommendations'
+import empty from '../../utils/empty'
 import millisToMinutesAndSeconds from '../../utils/millisToMinutes'
-import { StyledLink } from '../CommonStyledComponents/CommonStyledComponents'
+import { NameTrack, StyledLink, Subtitles } from '../CommonStyledComponents/CommonStyledComponents'
 
-const TracksRecommended = () => {
-  const { tracks, loading } = useRecommendations()
+const TracksRecommended = ({artist}) => {
+  const { tracks, loading } = useRecommendations(artist)
+
+  if(loading && empty(tracks)) return null
 
   return (
     <TrackSection>
       <TitleSection>Canciones Recomendadas</TitleSection>
       {
         tracks.map((track) => (
-          <StyledLink key={track.id} state={{ track }} to={`detail/${track.id}`} >
+          <StyledLink key={track.id} state={{ track }} to={`/detail/${track.id}`} >
             <MainContainer >
               <ImageTrack src={track.album.images[0].url} alt="avatar" />
               <InformationContainer>
@@ -31,10 +33,15 @@ const TracksRecommended = () => {
 
 const TrackSection = styled.div`
   display:flex;
-  width: 20%;
   flex-direction: column;
   gap: 10px;
-  padding: 32px;
+  overflow-y: scroll;
+  height: 100vh;
+  width: 35%;
+  min-width: auto;
+  @media only screen and (max-width: 769px) {
+    display: none;
+  }
 `
 
 const MainContainer = styled.div`
@@ -42,8 +49,10 @@ const MainContainer = styled.div`
   width: 100%;
   gap: 10px;
   align-items:center;
-  height: 85px;
   justify-content: space-between;
+  @media only screen and (max-width: 1200px) {
+    flex-direction: column;
+  }
 `
 
 const ImageTrack = styled.img`
@@ -51,31 +60,31 @@ const ImageTrack = styled.img`
   border-radius: 10px;
   heigth: 80px;
   object-fit: contain;
+  @media only screen and (max-width: 1200px) {
+    width: 100px;
+  }
 `
 
 const TitleSection = styled.h3`
   color: ${(props) => props.theme.white};
-`
-
-const NameTrack = styled.h4`
-  color: ${(props) => props.theme.white};
-  margin: 2px 0px;
-  display: -webkit-box;
-  max-width: 400px;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`
-
-const Subtitles = styled.h5`
-  color: ${(props) => props.theme.gray};
-  margin: 2px 0px;
+  position: sticky;
+  top:0;
+  background-color: black;
+  padding: 32px 32px 32px 32px;
+  margin: 0px;
+  display: flex;
+  min-width: auto;
 `
 
 const InformationContainer = styled.div`
+  display: flex;
   align-items: flex-start;
   flex: 1;
+  flex-direction: column;
+  @media only screen and (max-width: 1200px) {
+    align-items: center;
+    justify-content: center;
+  }
 `
 
 export default TracksRecommended

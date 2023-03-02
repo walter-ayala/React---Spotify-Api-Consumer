@@ -1,8 +1,8 @@
 import instance from "../instances/instance"
 
-const getRecommendations = async () => {
+const getRecommendations = async (artist, id='0c6xIDDpzE81m2q797ordA') => {
   try {
-    const response = await instance.get('/recommendations?seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=hip-hop,electronic,latino&seed_tracks=0c6xIDDpzE81m2q797ordA')
+    const response = await instance.get(`/recommendations?seed_artists=${artist}&seed_tracks=${id}`)
     return response.data.tracks
   }
   catch (error) {

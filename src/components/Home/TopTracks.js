@@ -1,4 +1,3 @@
-import { kebabCase } from 'lodash'
 import React from 'react'
 import styled from 'styled-components'
 import useTopTracks from '../../hooks/useTopTracks'
@@ -13,7 +12,7 @@ const TopTracks = () => {
       <MainContainer>
         {
           tracks.map((song) => (
-            <StyledLink key={song.track.id} state={{ track: song.track }} to={`detail/${song.track.id}`} >
+            <StyledLink key={song.track.id} state={{ track: song.track }} to={`/detail/${song.track.id}`} >
               <InformationContainer>
                 <ImageTrack src={song.track.album.images[0].url} alt="avatar" />
                 <NameTrack>{song.track.name}</NameTrack>

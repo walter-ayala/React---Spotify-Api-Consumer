@@ -24,6 +24,7 @@ const Categories = () => {
 
 const TitleSection = styled.h3`
   color: ${(props) => props.theme.white};
+  margin-top: 0px;
 `
 const ImageTrack = styled.img`
   width: 100px;
