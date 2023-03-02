@@ -3,9 +3,9 @@ import empty from '../utils/empty'
 import { authSuccess } from '../store/Auth/authActions'
 import { initializeStore } from '../store'
 
-const BASE_URL = "https://api.spotify.com/v1"
-const CLIENT_ID = "aabe812c257a4505b3fb756ea7f23f3c"
-const CLIENT_SECRET = "f73f58b31a3743ac8dd842756283bdc0"
+const BASE_URL = ""
+const CLIENT_ID = ""
+const CLIENT_SECRET = ""
 
 const base64 = require('base-64')
 const qs = require('qs')
